@@ -18,11 +18,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  // TODO: 환경변수로 바꾸기
+  final String serverUrl = 'http://10.174.109.56:8080/auth/login';
+
   Future<void> _login() async {
     if (_formKey.currentState!.validate()) {
       try {
         final response = await http.post(
-          Uri.parse('http://localhost:8080/auth/login'), // 실제 서버 주소
+          Uri.parse(serverUrl), // 실제 서버 주소
           headers: {'Content-Type': 'application/json; charset=UTF-8'},
           body: jsonEncode({
             'email': _emailController.text,
